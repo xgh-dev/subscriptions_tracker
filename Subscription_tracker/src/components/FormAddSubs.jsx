@@ -11,6 +11,8 @@ const FormAddSubs = ({ setType, setPrice, type, price }) => {
       return;
     }
     setError(false)
+    setType("")
+    setPrice("")
     //console.log(type);
     //console.log(price);
   };
@@ -20,7 +22,7 @@ const FormAddSubs = ({ setType, setPrice, type, price }) => {
       <h1>Agregar Subscripciones</h1>
       <form onSubmit={handleSubs}>
         <p>Servicio</p>
-        <select onChange={(e) => setType(e.target.value)}>
+        <select onChange={(e) => setType(e.target.value)} value={type}>
           <option value="">-- Elegir --</option>
           <option value="netflix">Netflix</option>
           <option value="disney">Disney</option>
@@ -35,6 +37,7 @@ const FormAddSubs = ({ setType, setPrice, type, price }) => {
           type="number"
           placeholder="20$"
           onChange={(e) => setPrice(e.target.value)}
+          value={price}
         />
         <input type="submit" value="Agregar" />
       </form>

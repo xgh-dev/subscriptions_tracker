@@ -3,6 +3,8 @@ import Balance from "./Balance";
 import FormAddSubs from "./FormAddSubs";
 
 const MainControl = ({ count }) => {
+  //guardaremos las subscripciones
+  const [subs, setSubs] = useState([])
   const [type, setType] = useState("");
   const [price, setPrice] = useState("");
 
@@ -14,6 +16,8 @@ const MainControl = ({ count }) => {
         setPrice={setPrice}
         type={type}
         price={price}
+        setSubs={setSubs}
+        subs = {subs}
       />
     </div>
   );
