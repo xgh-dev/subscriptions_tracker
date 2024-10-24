@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const FormAddSubs = ({ setType, setPrice, type, price }) => {
+const FormAddSubs = ({ setType, setPrice, type, price, setSubs, subs }) => {
   
   const [error,setError] = useState(false)
 
@@ -11,6 +11,13 @@ const FormAddSubs = ({ setType, setPrice, type, price }) => {
       return;
     }
     setError(false)
+    //creamos el objeto que se ira creando y guardando en setSubs
+    const data = {
+      type:type,
+      price:price,
+      id:Date.now()
+    }
+    setSubs([...subs,data])
     setType("")
     setPrice("")
     //console.log(type);
@@ -25,7 +32,7 @@ const FormAddSubs = ({ setType, setPrice, type, price }) => {
         <select onChange={(e) => setType(e.target.value)} value={type}>
           <option value="">-- Elegir --</option>
           <option value="netflix">Netflix</option>
-          <option value="disney">Disney</option>
+          <option value="disneyPlus">Disney</option>
           <option value="hboMax">HBO</option>
           <option value="starPlus">Star Plus</option>
           <option value="primeVideo">Prime Video</option>

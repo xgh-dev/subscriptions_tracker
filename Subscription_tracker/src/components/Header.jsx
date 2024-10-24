@@ -3,6 +3,7 @@
 const Header = () => {
     return (
         <div className="header">
+            <img src="" alt="" />
             <h2>Subscriptions Tracker</h2>
         </div>
     );
