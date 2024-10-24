@@ -1,8 +1,9 @@
 import { useState } from "react";
 
-const FormAddSubs = ({ setType, setPrice, type, price, setSubs, subs }) => {
+const FormAddSubs = ({ setType, setPrice, type, price, setSubs, subs, editId, setEditID, spent, setSpent, count}) => {
   
   const [error,setError] = useState(false)
+  const [errorMoney,setErrorMoney] = useState(false)
 
   const handleSubs = e => {
     e.preventDefault();
@@ -10,18 +11,37 @@ const FormAddSubs = ({ setType, setPrice, type, price, setSubs, subs }) => {
       setError(true)
       return;
     }
-    setError(false)
-    //creamos el objeto que se ira creando y guardando en setSubs
-    const data = {
-      type:type,
-      price:price,
-      id:Date.now()
+    //
+    if (count - spent < Number(price)){
+        setErrorMoney(true)
+        return;
     }
-    setSubs([...subs,data])
+    setError(false)
+    setErrorMoney(false)
+    if (editId != ""){
+      setEditID("");
+      const newSubs = subs.map(item => {
+        if (item.id === editId){
+          if (item.id === editId){
+            item.type = type;
+            item.price = price;
+          }
+        }
+        return item
+      })
+      setSubs(newSubs);
+    } else {
+      //creamos el objeto que se ira creando y guardando en setSubs
+        const data = {
+          type:type,
+          price:price,
+          id:Date.now()
+        }
+        setSubs([...subs,data])  
+    }
     setType("")
     setPrice("")
-    //console.log(type);
-    //console.log(price);
+
   };
 
   return (
@@ -46,9 +66,10 @@ const FormAddSubs = ({ setType, setPrice, type, price, setSubs, subs }) => {
           onChange={(e) => setPrice(e.target.value)}
           value={price}
         />
-        <input type="submit" value="Agregar" />
+        {editId != "" ? <input type="submit" value="Guardar"/>:<input type="submit" value="Agregar"/> }
       </form>
       { error ? <p className="error">Campos incorrectos</p> : null}
+      { errorMoney ? <p className="error">No esta en el rango del presupuesto</p> : null}
     </div>
   );
 };
