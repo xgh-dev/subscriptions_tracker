@@ -19,6 +19,8 @@ const FormAddMoney = ({ setCount, setIsValid }) => {
     return ( 
         <div className="form-add-money">
             <form onSubmit={ handleForm }>
+                <p>Ingresar Usuario</p>
+                <input type="text" placeholder="usuario"/>
                 <p>Agregar Presupuesto</p>
                 <input type="number" placeholder="$$$" onChange={e => setInput(e.target.value)} />
                 <input type="submit" value="Agregar" />
