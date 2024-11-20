@@ -34,7 +34,6 @@ export async function showUserCount(UserId) {
         `,
       [UserId]
     ); // El ID se pasa como parámetro de la consulta para evitar inyecciones SQL.
-
     return data; // Retornamos los datos obtenidos
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -59,7 +58,7 @@ export async function showUserCount(UserId) {
 esta consulta nos regresa todos los datos que pertenecen al id
 */
 
-export async function newUer(nombre, saldo) {
+export async function newUser(nombre, saldo) {
   try {
     const [usuario] = await pool.query(
       `
@@ -73,18 +72,6 @@ export async function newUer(nombre, saldo) {
     throw error;
   }
 }
-//newUer("Xavier", "500");
-
-export async function getUsers() {
-  try {
-    const [usuarios] = await pool.query(`SELECT * FROM usuarios`);
-    return usuarios; // Retorna los usuarios obtenidos
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error; // Re-lanza el error para manejarlo en otro nivel
-  }
-}
-//getUsers()
 
 export async function getUserByName(name) {
   try {
@@ -96,11 +83,32 @@ export async function getUserByName(name) {
   }  
 }
 
-export async function createUserOrGetUser(name) {
+/* export async function createUserOrGetUser(name) {
   try {
     //meteremos un nombre, si este existe nos regresa true y estrae datos de este, si no existe lo crea
   } catch (error) {
     console.error("Error fetching data:", error);
     throw error; // Re-lanza el error para manejarlo en otro nivel
+  }
+}
+*/
+
+export async function addKindOfSubscriptions(nombre,costo) {
+  try {
+    const [subscripcion] = await pool.query(`INSERT INTO tipos_subscripciones(nombre_subs,costo) VALUES (?,?)`,[nombre,costo]);
+    return subscripcion;   
+  } catch (error) {
+    console.error(error)
+    throw error;
+  }
+}
+
+export async function subscripcionPorUsuario(id_usuario,id_subs) {
+  try {
+    const [relacion] = await pool.query(`INSERT INTO subscripciones(usuario_id,
+    subscripcion_id) VALUES (?,?)`,[id_usuario,id_subs])
+    return relacion;    
+  } catch (error) {
+    console.error(error)
   }
 }
