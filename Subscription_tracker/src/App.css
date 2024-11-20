@@ -25,12 +25,19 @@ body{
   text-transform: uppercase;
   font-weight: 800;
 }
+.form-add-money{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  
+}
 .form-add-money input[type="number"]{
     font-size: inherit;
     padding: 7px 17px;
     border: 0px;
     border-radius: 5px;
     outline: none;
+    
 }
 .form-add-money input[type="text"]{
   font-size: inherit;

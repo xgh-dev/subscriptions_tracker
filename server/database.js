@@ -82,6 +82,17 @@ export async function getUserByName(name) {
     throw error; // Re-lanza el error para manejarlo en otro nivel
   }  
 }
+export async function getUserByID(id) {
+  try {
+    const [usuario] = await pool.query(`SELECT * FROM usuarios WHERE id=?`,[id]);
+    return usuario
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error; // Re-lanza el error para manejarlo en otro nivel
+  }  
+}
+
+
 
 /* export async function createUserOrGetUser(name) {
   try {
@@ -111,4 +122,14 @@ export async function subscripcionPorUsuario(id_usuario,id_subs) {
   } catch (error) {
     console.error(error)
   }
+}
+
+export async function modificarSaldo(nombre,saldo) {
+  try {
+    await pool.query('UPDATE Usuarios SET saldo = ? WHERE nombre_usuario = ?',[saldo,nombre]);
+    //console.log("funciona")
+  } catch (error) {
+    console.log(error)
+  }
+  
 }

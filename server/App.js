@@ -6,6 +6,7 @@ import {
     showUsers,
     getUserByName,
     newUser,
+    modificarSaldo    
 } from "./database.js"
 
 import cors from "cors";
@@ -36,7 +37,7 @@ app.get("/",(req,res) => {
 
 // mediante app y el metodo que queremos
 app.get("/users", async (req,res) => {
-    const users = await showUsers();
+    const [users] = await showUsers();
     res.status(200).send(users) 
 })
 
@@ -46,8 +47,8 @@ app.get("/countUser/:id", async (req,res) => {
 })
 
 app.get("/user/:name", async (req,res) => {
-    const userById = await getUserByName(req.params.name);
-    res.status(200).send(userById)
+    const [user] = await getUserByName(req.params.name);
+    res.status(200).send(user)//como la consulta nos genera una lista llamamos a user ya que el primer elemento de la lista es el json que necesitamos
 })
 
 app.post("/newUser", async (req,res) => {
@@ -59,6 +60,11 @@ app.post("/newUser", async (req,res) => {
 
 })
 
+app.put("/user/:name/:saldo", async (req,res) => {
+    const {nombre,saldo} = req.body;
+    await modificarSaldo(nombre,saldo)
+    res.status(200).send("Cambios realizados en el saldo")
+})
 
 app.listen(8080, () => {
     console.log("Server running on port 8080");
