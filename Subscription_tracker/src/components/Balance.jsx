@@ -14,7 +14,7 @@ const Balance = ({count, subs, spent, setSpent,globalUser,actualizarSaldo}) => {
     const updateBalance = () => {
         const spent = subs.reduce((total,item) => Number(item.price) + total, 0);
         setSpent(spent)
-        const Balancetotal = count -spent
+        const Balancetotal = count - spent
         cambiosEnSaldo(globalUser,Balancetotal)
     }
 

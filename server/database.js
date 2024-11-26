@@ -18,28 +18,17 @@ const pool = mysql
 //request que hacen las consultas, estas request se deben exportar y son asyncronas
 
 export async function showUsers() {
-  const [user] = await pool.query("SELECT * FROM usuarios");
-  //console.log(user)
-  return user;
-}
-
-export async function showUserCount(UserId) {
   try {
-    const [data] = await pool.query(
-      `
-            SELECT subscripciones.id, subscripciones.nombre_subs, subscripciones.saldo, usuarios.nombre_usuario 
-            FROM subscripciones 
-            JOIN usuarios ON subscripciones.usuario_id = usuarios.id 
-            WHERE usuarios.id = ?
-        `,
-      [UserId]
-    ); // El ID se pasa como parámetro de la consulta para evitar inyecciones SQL.
-    return data; // Retornamos los datos obtenidos
+    const [users] = await pool.query("SELECT * FROM usuarios");
+    //console.log(users);
+    return users;
   } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error; // Lanzamos el error para manejarlo desde el llamado de la función
+    console.error("Error al obtener usuarios:", error);
+    throw error; // Lanza el error para manejarlo en otro nivel si es necesario
   }
 }
+
+
 /* resultado de consulta showUserCount
 [
     {
@@ -82,6 +71,7 @@ export async function getUserByName(name) {
     throw error; // Re-lanza el error para manejarlo en otro nivel
   }  
 }
+
 export async function getUserByID(id) {
   try {
     const [usuario] = await pool.query(`SELECT * FROM usuarios WHERE id=?`,[id]);
@@ -91,8 +81,6 @@ export async function getUserByID(id) {
     throw error; // Re-lanza el error para manejarlo en otro nivel
   }  
 }
-
-
 
 /* export async function createUserOrGetUser(name) {
   try {
@@ -104,26 +92,6 @@ export async function getUserByID(id) {
 }
 */
 
-export async function addKindOfSubscriptions(nombre,costo) {
-  try {
-    const [subscripcion] = await pool.query(`INSERT INTO tipos_subscripciones(nombre_subs,costo) VALUES (?,?)`,[nombre,costo]);
-    return subscripcion;   
-  } catch (error) {
-    console.error(error)
-    throw error;
-  }
-}
-
-export async function subscripcionPorUsuario(id_usuario,id_subs) {
-  try {
-    const [relacion] = await pool.query(`INSERT INTO subscripciones(usuario_id,
-    subscripcion_id) VALUES (?,?)`,[id_usuario,id_subs])
-    return relacion;    
-  } catch (error) {
-    console.error(error)
-  }
-}
-
 export async function modificarSaldo(nombre,saldo) {
   try {
     await pool.query('UPDATE Usuarios SET saldo = ? WHERE nombre_usuario = ?',[saldo,nombre]);
@@ -131,5 +99,9 @@ export async function modificarSaldo(nombre,saldo) {
   } catch (error) {
     console.log(error)
   }
+  
+}
+
+export async function agregarSubscripcion(nombre_subscripcion,precio,usuario_id) {
   
 }

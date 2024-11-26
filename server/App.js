@@ -2,7 +2,6 @@
 
 import express from "express";
 import {
-    showUserCount,
     showUsers,
     getUserByName,
     newUser,
@@ -37,7 +36,7 @@ app.get("/",(req,res) => {
 
 // mediante app y el metodo que queremos
 app.get("/users", async (req,res) => {
-    const [users] = await showUsers();
+    const users = await showUsers();
     res.status(200).send(users) 
 })
 
