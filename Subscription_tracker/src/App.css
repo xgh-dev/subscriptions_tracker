@@ -58,6 +58,35 @@ body{
   background-color: #060708;
   color: #fff;
 }
+
+.form-add-money input{
+  box-sizing: border-box; /*incluye padding y borde en el ancho*/
+  width: 100%;/*asegura que el input acoupe el ancho disponible*/
+}
+
+
+.form-container {
+  display: flex;
+  flex-direction: row; /* Formularios en fila */
+  justify-content: space-between;
+  flex-wrap: wrap; /* Hace que los formularios pasen a la siguiente línea si es necesario */
+  /*gap: 20px;*/ /*gap da espacio entre los elementos*/
+  width: 100%;
+  max-width: 800px; /* Para limitar el ancho máximo */
+}
+/**/
+.form {
+  display: flex;
+  flex-direction: column; /* Coloca los inputs y etiquetas en columna */
+  gap: 10px; /* Espaciado entre elementos */
+  flex: 1; /* Hace que los formularios ocupen el mismo espacio */
+  min-width: 250px; /* Ancho mínimo para evitar que los inputs se reduzcan demasiado */
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+
 .form-add-money p {
   color: #fff;
   font-weight: 500;

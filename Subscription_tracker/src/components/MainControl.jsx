@@ -43,6 +43,11 @@ const MainControl = ({ count, globalUser, globalUserID, actualizarSaldo,agregarS
     cargarItems()
   },[globalUserID])
   
+  //se puede usar asi si estamos seguros del comportamiento de este, pero se recomienda incluir las dependencias en el array de dependencias para que no solo se ejecute al iniciar el programa
+  /*useEffect(() => {
+    cargarItems()
+  },[globalUserID])*/
+  
   return (
     <>
       <div className="main-form">

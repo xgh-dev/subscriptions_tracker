@@ -91,6 +91,7 @@ function App() {
       console.error("error en editar el item",error)
     }
   }
+  
   async function eliminarSuscripcion(id) {
     try {
       await fetch(`${url}/eliminarSuscripcion/${id}`,{

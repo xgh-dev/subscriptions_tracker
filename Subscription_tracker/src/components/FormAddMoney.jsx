@@ -68,7 +68,8 @@ const FormAddMoney = ({
   return (
     <>
       <div className="form-add-money">
-        <form onSubmit={handleForm}>
+        <div className="form-container">
+        <form onSubmit={handleForm} className='form crear_usuario'>
           <p>Crear Usuario</p>
           <input
             type="text"
@@ -83,7 +84,7 @@ const FormAddMoney = ({
           />
           <input type="submit" value="Agregar" />
         </form>
-        <form onSubmit={handleFormLogin}>
+        <form onSubmit={handleFormLogin}  className='form ingresar_usuario'>
           <p>Ingresar usuario</p>
           <input
             type="text"
@@ -92,12 +93,13 @@ const FormAddMoney = ({
           />
           <p>Ingresar saldo</p>
           <input
-            type="text"
+            type="number"
             placeholder="Ingresar más saldo"
             onChange={(e) => setInputMasSaldo(e.target.value)}
           />
           <input type="submit" value="Ingresar" />
         </form>
+        </div>
       </div>
       {error ? <p className="error">Uno o mas datos es invalido</p> : null}
     </>
