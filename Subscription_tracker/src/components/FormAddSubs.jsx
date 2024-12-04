@@ -1,47 +1,68 @@
 import { useState } from "react";
 
-const FormAddSubs = ({ setType, setPrice, type, price, setSubs, subs, editId, setEditID, spent, setSpent, count}) => {
+const FormAddSubs = ({
+  setType,
+  setPrice,
+  type,
+  price,
+  setSubs,
+  subs,
+  editId,
+  setEditID,
+  spent,
+  setSpent,
+  count,
+  globalUserID,
+  agregarSuscripcion,
+  cargarItems,
+  editarPrecioDeSuscripcion,
   
-  const [error,setError] = useState(false)
-  const [errorMoney,setErrorMoney] = useState(false)
+}) => {
+  const [error, setError] = useState(false);
+  const [errorMoney, setErrorMoney] = useState(false);
 
-  const handleSubs = e => {
+  const handleSubs = async (e) => {
     e.preventDefault();
-    if (price === "" || Number(price) < 0 || type === ""){
-      setError(true)
+    if (price === "" || Number(price) < 0 || type === "") {
+      setError(true);
       return;
     }
     //
-    if (count - spent < Number(price)){
-        setErrorMoney(true)
-        return;
+    if (count - spent < Number(price)) {
+      setErrorMoney(true);
+      return;
     }
-    setError(false)
-    setErrorMoney(false)
-    if (editId != ""){
-      setEditID("");
-      const newSubs = subs.map(item => {
-        if (item.id === editId){
-          if (item.id === editId){
-            item.type = type;
-            item.price = price;
-          }
+    setError(false);
+    setErrorMoney(false);
+    if (editId != "") {
+      const newSubs = subs.map((item) => {
+        //en este map si usamos return por que si utilizaremos la nueva lista generada por map
+        if (item.id === editId) {
+          //return { ...item, nombre_subscripcion: type, precio: price }; //tambien se puede usar esta linea de codigo "operador spread (...)"
+          item.nombre_subscripcion = type;
+          item.precio = price;
+          console.log("precio nuevo",item.prsecio)
+          editarPrecioDeSuscripcion(item.id,item.precio)
+
         }
-        return item
-      })
+        return item;
+      });
       setSubs(newSubs);
+      setEditID("");
     } else {
       //creamos el objeto que se ira creando y guardando en setSubs
-        const data = {
-          type:type,
-          price:price,
-          id:Date.now()
-        }
-        setSubs([...subs,data])  
+      const data = {
+        type: type,
+        price: price,
+        id: globalUserID,
+      };
+      //console.log(data.id)
+      await agregarSuscripcion(data.id, data.type, data.price);
+      //setSubs([...subs,data])
+      await cargarItems() //el await soluciono el renderizado al momento de agregar una nueva suscripcion
     }
-    setType("")
-    setPrice("")
-
+    setType("");
+    setPrice("");
   };
 
   return (
@@ -66,10 +87,16 @@ const FormAddSubs = ({ setType, setPrice, type, price, setSubs, subs, editId, se
           onChange={(e) => setPrice(e.target.value)}
           value={price}
         />
-        {editId != "" ? <input type="submit" value="Guardar"/>:<input type="submit" value="Agregar"/> }
+        {editId != "" ? (
+          <input type="submit" value="Guardar" />
+        ) : (
+          <input type="submit" value="Agregar" />
+        )}
       </form>
-      { error ? <p className="error">Campos incorrectos</p> : null}
-      { errorMoney ? <p className="error">No esta en el rango del presupuesto</p> : null}
+      {error ? <p className="error">Campos incorrectos</p> : null}
+      {errorMoney ? (
+        <p className="error">No esta en el rango del presupuesto</p>
+      ) : null}
     </div>
   );
 };

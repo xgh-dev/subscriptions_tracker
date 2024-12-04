@@ -19,7 +19,7 @@ const pool = mysql
 
 export async function showUsers() {
   try {
-    const [users] = await pool.query("SELECT * FROM usuarios");
+    const users = await pool.query("SELECT * FROM usuarios");
     //console.log(users);
     return users;
   } catch (error) {
@@ -27,25 +27,6 @@ export async function showUsers() {
     throw error; // Lanza el error para manejarlo en otro nivel si es necesario
   }
 }
-
-
-/* resultado de consulta showUserCount
-[
-    {
-        "id": 1,
-        "name": "Subscripción Básica",
-        "saldo": 100.50,
-        "name": "Juan Pérez"
-    },
-    {
-        "id": 2,
-        "name": "Subscripción Premium",
-        "saldo": 250.00,
-        "name": "Juan Pérez"
-    }
-]
-esta consulta nos regresa todos los datos que pertenecen al id
-*/
 
 export async function newUser(nombre, saldo) {
   try {
@@ -64,22 +45,27 @@ export async function newUser(nombre, saldo) {
 
 export async function getUserByName(name) {
   try {
-    const [usuario] = await pool.query(`SELECT * FROM usuarios WHERE nombre_usuario=?`,[name]);
-    return usuario
+    const [usuario] = await pool.query(
+      `SELECT * FROM usuarios WHERE nombre_usuario=?`,
+      [name]
+    );
+    return usuario;
   } catch (error) {
     console.error("Error fetching data:", error);
     throw error; // Re-lanza el error para manejarlo en otro nivel
-  }  
+  }
 }
 
 export async function getUserByID(id) {
   try {
-    const [usuario] = await pool.query(`SELECT * FROM usuarios WHERE id=?`,[id]);
-    return usuario
+    const [usuario] = await pool.query(`SELECT * FROM usuarios WHERE id=?`, [
+      id,
+    ]);
+    return usuario;
   } catch (error) {
     console.error("Error fetching data:", error);
     throw error; // Re-lanza el error para manejarlo en otro nivel
-  }  
+  }
 }
 
 /* export async function createUserOrGetUser(name) {
@@ -92,16 +78,61 @@ export async function getUserByID(id) {
 }
 */
 
-export async function modificarSaldo(nombre,saldo) {
+export async function modificarSaldo(nombre, saldo) {
   try {
-    await pool.query('UPDATE Usuarios SET saldo = ? WHERE nombre_usuario = ?',[saldo,nombre]);
+    await pool.query("UPDATE usuarios SET saldo = ? WHERE nombre_usuario = ?", [
+      saldo,
+      nombre,
+    ]);
     //console.log("funciona")
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-  
 }
 
-export async function agregarSubscripcion(nombre_subscripcion,precio,usuario_id) {
+export async function agregarSubscripcion(
+  nombre_subscripcion,
+  precio,
+  usuario_id
+) {
+  try {
+    await pool.query(
+      `INSERT INTO subscripciones(nombre_subscripcion,precio,usuario_id) VALUES (?,?,?)`,
+      [nombre_subscripcion, precio, usuario_id]
+    );
+    console.log("Suscripción añadida en base de datos");
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function mostrarSuscripcionesPorID(id) {
+  try {
+    const subscripciones = pool.query(
+      "SELECT * FROM subscripciones WHERE usuario_id = ?",
+      [id]
+    );
+    return subscripciones;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function eliminarSuscripcion(id){
+  try {
+    await pool.query("DELETE FROM subscripciones WHERE id = ?",[id])
+    console.log('suscripción eliminada')
+  } catch (error) {
+    console.error('error al eliminar suscripción en la base de datos',error)
+  }
+}
+
+export async function editarSuscripcion(id,precioNuevo) {
+  try {
+    await pool.query('UPDATE subscripciones SET precio = ? WHERE id = ? ',[precioNuevo,id])
+    console.log("precio de la suscripcion actualizado")
+  } catch (error) {
+    console.error('error al cambiar el precio de la suscripcion en la base de datos',error)
+  }
   
 }

@@ -5,7 +5,11 @@ import {
     showUsers,
     getUserByName,
     newUser,
-    modificarSaldo    
+    modificarSaldo,
+    agregarSubscripcion,
+    mostrarSuscripcionesPorID,
+    eliminarSuscripcion,
+    editarSuscripcion
 } from "./database.js"
 
 import cors from "cors";
@@ -36,14 +40,10 @@ app.get("/",(req,res) => {
 
 // mediante app y el metodo que queremos
 app.get("/users", async (req,res) => {
-    const users = await showUsers();
+    const [users] = await showUsers();
     res.status(200).send(users) 
 })
 
-app.get("/countUser/:id", async (req,res) => {
-    const userById = await showUserCount(req.params.id);
-    res.status(200).send(userById);
-})
 
 app.get("/user/:name", async (req,res) => {
     const [user] = await getUserByName(req.params.name);
@@ -59,10 +59,35 @@ app.post("/newUser", async (req,res) => {
 
 })
 
-app.put("/user/:name/:saldo", async (req,res) => {
+app.put("/modificarSaldo", async (req,res) => {
     const {nombre,saldo} = req.body;
     await modificarSaldo(nombre,saldo)
     res.status(200).send("Cambios realizados en el saldo")
+})
+
+
+app.post('/agregarSuscripcion', async (req,res) => {
+    const {idUsuario,nombreSuscripcion,precio} = req.body;
+    await agregarSubscripcion(nombreSuscripcion,precio,idUsuario)
+    res.status(200).send('Suscripción creada con exito')
+})
+
+app.get('/obternerSuscripcionesPorId/:id', async (req,res) => {
+    const [suscripciones] = await mostrarSuscripcionesPorID(req.params.id)
+    res.status(200).send(suscripciones);
+})
+
+app.put('/editarPrecio',async (req,res) => {
+    //destructuramos y extraemos los datos del endpoint
+    const {id,precioNuevo} = req.body;
+    await modificarSaldo(id,precioNuevo);
+    res.status(200).send('Precio actualizado')
+})
+
+app.delete('/eliminarSuscripcion/:id', async (req,res) => {
+    const id = req.params.id;
+    await eliminarSuscripcion(id)
+    res.status(200).send('Suscripcion eliminada')
 })
 
 app.listen(8080, () => {

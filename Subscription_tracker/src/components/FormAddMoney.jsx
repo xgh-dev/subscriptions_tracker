@@ -6,6 +6,7 @@ const FormAddMoney = ({
   createUser,
   getUserByName,
   setGloblalUser,
+  setGloblalUserID,
   actualizarSaldo,
 }) => {
   const [inputSaldo, setInputSaldo] = useState("");
@@ -14,17 +15,30 @@ const FormAddMoney = ({
   const [inputMasSaldo, setInputMasSaldo] = useState("");
   const [error, setError] = useState(false);
 
-  const handleForm = (e) => {
+  const handleForm = async(e) => {
     e.preventDefault();
     if (inputSaldo === "" || Number(inputSaldo) < 0 || inputName === "") {
       setError(true);
       return;
     }
     setError(false);
-    setCount(Number(inputSaldo));
-    setIsValid(createUser(inputName, inputSaldo));
+    try {
+      await createUser(inputName,inputSaldo);
+      const login = await getUserByName(inputName);
+      //console.log(login.id)
+      setGloblalUserID(login.id)
+      setGloblalUser(login.nombre_usuario);
+      setCount(Number(login.saldo));
+    } catch (error) {
+      console.log('error en el ingreso de usuario',error)
+    }
+    setIsValid(true);
+    //
+    //setCount(Number(inputSaldo));
+    //setIsValid(createUser(inputName, inputSaldo));
     //console.log(input);
   };
+  
   const handleFormLogin = async (e) => {
     //en esta funcion como manejamos consultas que esperan datos y que de estos datos dependen variables en el codigo, debemos definirla como una funcion asincrona y la consulta a la api debe estar acompañada por un await
     e.preventDefault();
@@ -36,6 +50,7 @@ const FormAddMoney = ({
     try {
       const login = await getUserByName(inputLogin);
       //console.log(login.id)
+      setGloblalUserID(login.id)
       setGloblalUser(login.nombre_usuario);
       if (inputMasSaldo === "") {
         setCount(Number(login.saldo));

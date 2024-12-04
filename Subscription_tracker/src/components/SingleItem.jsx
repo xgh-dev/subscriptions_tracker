@@ -13,6 +13,7 @@ const SingleItem = ({ type, price, id, eliminarItem, editarItem }) => {
     }
     const handleEdit = e => {
         e.preventDefault()
+        console.log("editar item",id)
         editarItem(id)
     }
 
