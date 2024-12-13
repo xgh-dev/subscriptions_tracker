@@ -71,7 +71,7 @@ function App() {
       try {
         const response = await fetch(`${url}/obternerSuscripcionesPorId/${id}`)
         const suscripciones = await response.json();
-        //console.log([suscripciones])
+        //console.log(suscripciones)
         return suscripciones;
       } catch (error) {
         console.error('error al obtener consultas',error)

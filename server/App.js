@@ -74,6 +74,7 @@ app.post('/agregarSuscripcion', async (req,res) => {
 
 app.get('/obternerSuscripcionesPorId/:id', async (req,res) => {
     const [suscripciones] = await mostrarSuscripcionesPorID(req.params.id)
+    //console.log(suscripciones)
     res.status(200).send(suscripciones);
 })
 
