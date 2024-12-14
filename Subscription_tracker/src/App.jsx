@@ -5,7 +5,7 @@ import FormAddMoney from "./components/FormAddMoney";
 import MainControl from "./components/MainControl";
 import { useEffect, useState } from "react";
 
-const url = "http://localhost:8080";
+const url = "http://localhost:8080/subscriptionTracker/";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -32,7 +32,7 @@ function App() {
     try {
       const response = await fetch(`${url}/user/${name}`);
       const usuario = await response.json();
-      //console.log(usuario); //imprimimos la consulta
+      console.log(usuario); //imprimimos la consulta
       //console.log(usuario.nombre_usuario) //imprimimos un dato exacto de la consulta
       return usuario;
     } catch (error) {

@@ -17,17 +17,8 @@ const pool = mysql
 
 //request que hacen las consultas, estas request se deben exportar y son asyncronas
 
-export async function showUsers() {
-  try {
-    const users = await pool.query("SELECT * FROM usuarios");
-    //console.log(users);
-    return users;
-  } catch (error) {
-    console.error("Error al obtener usuarios:", error);
-    throw error; // Lanza el error para manejarlo en otro nivel si es necesario
-  }
-}
 
+/*
 export async function newUser(nombre, saldo) {
   try {
     const [usuario] = await pool.query(
@@ -36,7 +27,7 @@ export async function newUser(nombre, saldo) {
                 `,
       [nombre, saldo]
     );
-    return usuario;
+    return 'Usuario creado correctamente';
   } catch (error) {
     console.error("Error fetching data:", error);
     throw error;
@@ -68,16 +59,6 @@ export async function getUserByID(id) {
   }
 }
 
-/* export async function createUserOrGetUser(name) {
-  try {
-    //meteremos un nombre, si este existe nos regresa true y estrae datos de este, si no existe lo crea
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error; // Re-lanza el error para manejarlo en otro nivel
-  }
-}
-*/
-
 export async function modificarSaldo(nombre, saldo) {
   try {
     await pool.query("UPDATE usuarios SET saldo = ? WHERE nombre_usuario = ?", [
@@ -89,7 +70,10 @@ export async function modificarSaldo(nombre, saldo) {
     console.log(error);
   }
 }
+*/
 
+
+/*
 export async function agregarSubscripcion(
   nombre_subscripcion,
   precio,
@@ -136,3 +120,5 @@ export async function editarSuscripcion(id,precioNuevo) {
   }
   
 }
+*/
+export default pool;
