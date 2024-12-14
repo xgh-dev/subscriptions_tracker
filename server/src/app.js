@@ -14,8 +14,8 @@ const corseOptions = {
     
 }
 
-//definimos la funcion que contenga el metodo de express, este metodo se encargara de ejecutar y leer las llamadas a la api
-const app = express();
+//definimos la funcion que contenga el metodo de express (middleware), este metodo se encargara de ejecutar y leer las llamadas a la api
+const app = express(); //este es el middleware y es lo mas importante para que expres funciones
 
 //definimos la consulta que nos setea el puerto del servidor puede ser el que capturemos con la variable de enorno o el indicado
 app.set("port",process.env.PORT || 8080);
