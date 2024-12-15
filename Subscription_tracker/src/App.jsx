@@ -31,7 +31,7 @@ function App() {
     try {
       const response = await fetch(`${url}/user/${name}`);
       const usuario = await response.json();
-      console.log(usuario); //imprimimos la consulta
+      //console.log(usuario); //imprimimos la consulta
       //console.log(usuario.nombre_usuario) //imprimimos un dato exacto de la consulta
       return usuario;
     } catch (error) {
