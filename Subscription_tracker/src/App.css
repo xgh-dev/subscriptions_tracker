@@ -204,3 +204,11 @@ p.author a {
   font-weight: 700;
   color: #000;
 }
+
+.suscriptionList {
+  /*para poder usar un contenedor con scrollbar debemos definir su tamaño maximo y un overflow en y o x con el atributo auto*/
+  /*border: 2px black solid;*/
+  max-height: 400px;
+  overflow-y: auto;
+  
+}

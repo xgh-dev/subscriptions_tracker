@@ -7,18 +7,20 @@ const DisplayItems = ({ subs, eliminarItem, editarItem, cargarItems }) => {
     //cargarItems()
 
     useEffect(() => {
-        // Llamamos a cargarItems solo cuando el componente se monta
+        //llamamos a cargarItems solo cuando el componente se monta
         cargarItems();
       }, []);
 
     return ( 
         <>
             <h2>Subscripciones</h2>
+            <div className="suscriptionList">
             {
                 subs.map(item => (
                     <SingleItem key={item.id} type={item.nombre_subscripcion} price={item.precio} id={item.id} eliminarItem={eliminarItem} editarItem={editarItem}/>
                 ))
             }
+            </div>
         </>
     );
 }
