@@ -41,7 +41,7 @@ const FormAddSubs = ({
           //return { ...item, nombre_subscripcion: type, precio: price }; //tambien se puede usar esta linea de codigo "operador spread (...)"
           item.nombre_subscripcion = type;
           item.precio = price;
-          console.log("precio nuevo",item.prsecio)
+          console.log("precio nuevo",item.precio)
           editarPrecioDeSuscripcion(item.id,item.precio)
 
         }

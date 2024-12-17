@@ -5,9 +5,10 @@ const SingleItem = ({ type, price, id, eliminarItem, editarItem }) => {
 
   const handleDelete = (e) => {
     e.preventDefault();
+    //de esta forma generamos una ventana emergente de confirmacion
     const answer = window.confirm(`Borrar Subscripción a ${type}`);
     if (answer == true) {
-      console.log("eliminar item", id);
+      //console.log("eliminar item", id);
       eliminarItem(id);
     }
     //los e.preventDefault son fundamentales para evitar errores y capturar eventos como click

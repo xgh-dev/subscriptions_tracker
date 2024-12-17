@@ -33,7 +33,6 @@ const FormAddMoney = ({
       console.log('error en el ingreso de usuario',error)
     }
     setIsValid(true);
-    //
     //setCount(Number(inputSaldo));
     //setIsValid(createUser(inputName, inputSaldo));
     //console.log(input);

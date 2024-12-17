@@ -18,6 +18,7 @@ const MainControl = ({ count, globalUser, globalUserID, actualizarSaldo,agregarS
     eliminarSuscripcion(id);
     setSubs(newList);
   };
+  
   //funcion que me cambia un valor en especifico de el array actual y de la base de datos
   const editarItem = (id) => {
     subs.forEach((item) => {
@@ -29,7 +30,6 @@ const MainControl = ({ count, globalUser, globalUserID, actualizarSaldo,agregarS
     });
   };
   
-
   const cargarItems = async() => {
     try {
       const listaSuscripciones = await obtenerSuscripcionesPorID(globalUserID);
