@@ -21,8 +21,8 @@ const MainControl = ({ count, globalUser, globalUserID, actualizarSaldo,agregarS
   
   //funcion que me cambia un valor en especifico de el array actual y de la base de datos
   const editarItem = (id) => {
+    setEditID(id);
     subs.forEach((item) => {
-      setEditID(id);
       if (item.id == id) {
         setType(item.nombre_subscripcion);
         setPrice(item.precio);
@@ -39,10 +39,12 @@ const MainControl = ({ count, globalUser, globalUserID, actualizarSaldo,agregarS
     }
   }
 
+  
   useEffect(() => {
     cargarItems()
   },[])//se puede mandar asi
   
+
   //se puede usar asi si estamos seguros del comportamiento de este, pero se recomienda incluir las dependencias en el array de dependencias para que no solo se ejecute al iniciar el programa
   /*useEffect(() => {
     cargarItems()

@@ -1,16 +1,8 @@
 
-import { useEffect } from "react";
 import SingleItem from "./SingleItem"
 
-const DisplayItems = ({ subs, eliminarItem, editarItem, cargarItems }) => {
-    //llamar a la funcion cargar items para que mantenga la lista actualizada y pueda desencadenar una nueva ejecucion del elemento que itera la lista que generara las vistas de las suscripciones
-    //cargarItems()
-
-    useEffect(() => {
-        //llamamos a cargarItems solo cuando el componente se monta
-        cargarItems();
-      }, []);
-
+const DisplayItems = ({ subs, eliminarItem, editarItem }) => {
+    
     return ( 
         <>
             <h2>Subscripciones</h2>

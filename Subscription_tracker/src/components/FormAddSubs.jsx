@@ -16,7 +16,6 @@ const FormAddSubs = ({
   agregarSuscripcion,
   cargarItems,
   editarPrecioDeSuscripcion,
-  
 }) => {
   const [error, setError] = useState(false);
   const [errorMoney, setErrorMoney] = useState(false);
@@ -27,7 +26,7 @@ const FormAddSubs = ({
       setError(true);
       return;
     }
-    //
+
     if (count - spent < Number(price)) {
       setErrorMoney(true);
       return;
@@ -41,9 +40,8 @@ const FormAddSubs = ({
           //return { ...item, nombre_subscripcion: type, precio: price }; //tambien se puede usar esta linea de codigo "operador spread (...)"
           item.nombre_subscripcion = type;
           item.precio = price;
-          console.log("precio nuevo",item.precio)
-          editarPrecioDeSuscripcion(item.id,item.precio)
-
+          //console.log("precio nuevo",item.precio)
+          editarPrecioDeSuscripcion(item.id, item.precio);
         }
         return item;
       });
@@ -59,7 +57,7 @@ const FormAddSubs = ({
       //console.log(data.id)
       await agregarSuscripcion(data.id, data.type, data.price);
       //setSubs([...subs,data])
-      await cargarItems() //el await soluciono el renderizado al momento de agregar una nueva suscripcion
+      await cargarItems(); //el await soluciono el renderizado al momento de agregar una nueva suscripcion
     }
     setType("");
     setPrice("");
