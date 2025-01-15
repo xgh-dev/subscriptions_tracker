@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+#ignorando los node modules para reducir la cantidad de archivos cargados
+node_modules
