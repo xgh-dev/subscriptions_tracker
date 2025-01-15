@@ -9,7 +9,7 @@ import cors from "cors";
 const corseOptions = {
     //origin: ["127.0.0.1:3306","http://localhost:5173/"],
     origin: "*", //asi permitiremos cualquier origen
-    methos: ["POST","GET","DELETE","PUT"],
+    methods: ["POST","GET","DELETE","PUT"],
     credentials: true
     
 }
